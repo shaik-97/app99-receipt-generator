@@ -1,0 +1,16 @@
+2026-09-01 22:57:18,709 DEBUG __main__:17: Item class initialized
+2026-09-01 22:57:18,709 DEBUG __main__:45: Receipt class initialized
+2026-09-01 22:57:20,239 DEBUG __main__:25: Getting all details for item id: 1
+2026-09-01 22:57:20,240 DEBUG __main__:30: Attempting to buy item with id: 1
+2026-09-01 22:57:20,241 DEBUG __main__:38: Updating item list for item id: 1
+2026-09-01 22:57:20,244 DEBUG __main__:54: Inside pdf_receipt_generator method for user: ll and for item: 1
+2026-09-01 22:57:20,244 DEBUG __main__:55: Generating PDF receipt for user: ll
+2026-09-01 22:57:20,246 DEBUG __main__:71: PDF receipt generated successfully at: E:\PythonProject\app99-receipt-generator\pdf_docs\receipt_ll.pdf
+2026-09-01 22:57:20,247 DEBUG __main__:72: PDF generated for  user: ll
+2026-09-01 22:57:20,247 DEBUG __main__:99: Please find the updated items list:
+2026-09-01 22:57:20,249 DEBUG __main__:100: 
+item_id      item_name  item_price  in_stock
+      1 keyboard cable       99.00        79
+      2      mouse pad       12.99        83
+      3        cpu fan       56.00        30
+2026-09-01 22:57:20,249 DEBUG __main__:101: Total receipt count: 1
