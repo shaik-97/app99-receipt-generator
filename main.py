@@ -45,6 +45,7 @@ class Receipt:
         print(f"pdf generated for user {self.user_name}")
 
     @classmethod
+    # this is a class method which is used only for class level logic and not for instance level logic. It is used to get the total receipt count.
     def get_total_receipt_count(cls):
         return cls.count
 
