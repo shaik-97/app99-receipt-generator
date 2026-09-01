@@ -3,21 +3,19 @@ from pathlib import Path
 import pandas as pd
 from fpdf import FPDF
 
-class Receipt:
-    count = 0
+class Item:
+    def __init__(self, item_id:str):
+            self.item_id= item_id
+            self.user_name = None
+            self.item_name = None
+            self.item_price = None
 
-    def __init__(self):
-        self.item_id= None
-        self.user_name = None
-        self.item_name = None
-        self.item_price = None
-
-    def get_all_details(self,item_id:str)-> None:
-        self.item_name = df.loc[df["item_id"].astype(str) == item_id, "item_name"].values[0]
-        self.item_price = df.loc[df["item_id"].astype(str) == item_id, "item_price"].values[0]
+    def get_all_details(self)-> None:
+        self.item_name = df.loc[df["item_id"] == self.item_id, "item_name"]
+        self.item_price = df.loc[df["item_id"] == self.item_id, "item_price"]
 
     def buy_item(self):
-        if df.loc[df["item_id"].astype(str) == self.item_id, "in_stock"].values[0] >= 1:
+        if df.loc[df["item_id"] == self.item_id, "in_stock"].values[0] >= 1:
             self.update_list()
             print("Item list updated.")
             return True
@@ -28,6 +26,14 @@ class Receipt:
         df.loc[df["item_id"].astype(str) == self.item_id, "in_stock"] = item_row.values[0] - 1
         df.to_csv("items.csv", index=False)
         return
+
+class Receipt:
+    count = 0
+    def __init__(self, item):
+        self.item_id = item.item_id
+        self.user_name = item.user_name
+        self.item_name = item.item_name
+        self.item_price = item.item_price
 
     def pdf_receipt_generator(self):
         pdf = FPDF()
@@ -50,19 +56,19 @@ class Receipt:
         return cls.count
 
 
-df = pd.read_csv("items.csv")
+df = pd.read_csv("items.csv",dtype={"item_id": str})
 def main():
     print(df.to_string(index=False))
     user_name = input("Please enter your name: ")
     item_id = input("Please enter the item id you want to buy : ")
-    receipt = Receipt()
-    receipt.user_name = user_name
-    receipt.item_id = item_id
-    receipt.get_all_details(item_id)
-    if receipt.buy_item():
+    item = Item(item_id)
+    item.user_name = user_name
+    item.get_all_details()
+    receipt = Receipt(item)
+    if item.buy_item():
         receipt.pdf_receipt_generator()
         print("please find updated items list", df.to_string(index=False))
-        print("Total receipt count:", Receipt.get_total_receipt_count())
+        print("Total receipt count:", receipt.get_total_receipt_count())
     else:   
         print("Item is out of stock. Please try again later.")
 

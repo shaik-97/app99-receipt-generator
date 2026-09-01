@@ -1,5 +1,5 @@
 import pandas as pd
-df = pd.read_csv("items.csv")
+df = pd.read_csv("items.csv", dtype={"item_id": str})
 item_id = "2"
 price = df.loc[df["item_id"] == item_id, "item_price"]
 price2 = df.loc[df["item_id"].astype(str) == item_id, "item_price"].values[0]
@@ -10,9 +10,9 @@ stock = 1
 if df.loc[df["item_id"].astype(str) == "2", "in_stock"].values[0] >=1:
     print("stock-->",stock,"type--->",type(stock))
 
-print("stock number--->",df.loc[df["item_id"].astype(str) == item_id, "in_stock"].values[0]-1)
+print("stock number--->",df.loc[df['item_id'] == item_id, 'in_stock'].squeeze()-1)
 #5 -= 1
-df.to_csv("items.csv")
+df.to_csv("items.csv", index=False)
 print("updated list---->",df)
 
 # from fpdf import FPDF
